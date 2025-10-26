@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
-import { iUsuario } from './intefaz/iUsuario';
+import { iUsuario } from './intefaz/iUsuario.js';
 
 
 type Data = {
