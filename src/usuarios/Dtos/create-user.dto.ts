@@ -1,44 +1,59 @@
-import { IsArray, IsBoolean, IsIn, IsInt, IsNumber, IsString, isString, IsUUID, Matches, Max, Min, ValidateNested } from "class-validator";
-import { Type } from "class-transformer";
-import { AdressDto } from "./Adress.dto";
-import e from "express";
+import { IsArray, IsNumber, IsInt, IsString, Min, Max, IsEmail, IsEmpty, IsNotEmpty, 
+    IsOptional, MinLength, MaxLength, IsAlpha, 
+    ArrayMinSize, ArrayMaxSize, Matches, 
+    IsIn,
+    IsBoolean,
+    IsUUID,
+    ValidateNested} from "class-validator";
 
-// Peticion a los reles que hay en la tabla de roles de la Api
-const roles: String[] = ['admin', 'user', 'invitado'];
+import { AdressDto } from "./Adress.dto";
+import { Type } from "class-transformer";
+//peticion a los roles que hay en la tabla de roles de la api
+const roles: string[] = ['administrador', 'usuario', 'invitado'];
 
 export class CreateUserDto {
-    @IsUUID() //Identidicador unico unversal
-    id: number;
 
-    @IsString()
+   // @IsNumber() /* funcion externa que valida que es un número */
+    @IsUUID() //ES UN IDENTIFICADOR UNICO UNIVERSAL 32 o 36 caracteres (-)
+    id: number;
+    //Edad esta comprendidad entre 18 y 58
+    @IsInt({message: 'La edad es un entero'}) /* funcion externa que valida que es un número */
+    @Min(18, {message: 'La edad minima es 18 años'})
+    @Max(58, {message: 'La edad maxima es 58 años'})
+    edad: number;
+
+    @IsOptional()
+    @IsString() /* funcion externa que valida que es un string */
+    @MinLength(5, {message: 'namo: Minimo 5 caracteres'})
+    @MaxLength(8, {message: 'name: Maximo 8 caracteres'})
     name: string;
 
-    @IsString()
+    @IsEmail() /* funcion externa que valida que es un string */
     email: string;
-    @IsNumber()
-    @Min(18,  {message: "La edad minima es 18"})
-    @Max(80,  {message: "La edad maxima es 80"})
-    edad?: number; // El ? indica que es opcional
+
+    @IsArray() /* funcion externa que valida que es un array */
+    @ArrayMinSize(2, {message: 'Debe tener al menos 2 teléfonos'})
+    @ArrayMaxSize(3, {message: 'Debe tener  3 teléfonos'})    
+    telefonos: string[];
 
     @IsString()
-    telefono?: string;
+    @Matches(/^\d{8}[A-Z]$/, {message: 'El nif no es correcto, 8 números y una letra mayúscula'})
+    nif: string;
 
-    /*@IsString()
-    @Matches(/^[0-9]{8}[A-Z]$/, {message: "El NIF no es valido"})
-    nif: string;*/
-
-    @IsIn(roles, {message: "El rol deben ser los siguientes: " + roles})
-    role: string;
+    @IsIn(roles, {message: `El rol debe ser uno de los siguientes: ${roles}`})
+    rol: string;
 
     @IsBoolean()
-    desdeMadrid: boolean;
+    esdelMadrid: boolean; //true o false
 
     @IsArray()
-    @ValidateNested({each: true})
-    @Type(() => AdressDto)
-    direccion: AdressDto;
-
-
+    @ArrayMinSize(3, {message: 'Debe tener al menos 3 direcciones'})
+    @ValidateNested({each: true}) //valida cada uno de los elementos del array
+    @Type(() => AdressDto) //indica el tipo de los elementos del array
+    direcciones: AdressDto[]; //array de direcciones
+   
 }
 
-
+function IsMinLength(arg0: number, arg1: { message: string; }): (target: CreateUserDto, propertyKey: "name") => void {
+    throw new Error("Function not implemented.");
+}

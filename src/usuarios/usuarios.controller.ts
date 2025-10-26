@@ -1,34 +1,40 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { CreateUserDto } from './Dtos/create-user.dto';
 
 @Controller('usuarios')
 export class UsuariosController {
-  //Solo se inyectan clases con el decorador @Injectable
+  //inyectar el servicio UsuariosService en UsuariosController
+  //solo se inyectan clases con el decorador @Injectable
   constructor(private readonly usuariosService: UsuariosService) {}
 
-  @Get() /*Empoit raiz*/ getHome() {
-    return 'Home de la seccion usuarios';
+  @Get() /* endponit raiz -- home */
+  getHome(){
+    return 'home del seccion usuarios'
   }
 
-  // Si el metoodo no tiene decorador es un empoit
-  @Get('all') /*Empoit raiz*/ getAll() {
+  @Get('all') /* endponit raiz */
+  getAll(){
     return this.usuariosService.findAll();
   }
-
-  // @Get("New")
-  // getNew() {
-  //   return this.usuariosService.new();
-  // }
-
-  @Post('New')
-  add(@Body() Userdto: CreateUserDto) {
-    console.log("usuario recibido", Userdto);
-  
+  //Métodos ENDPOINT --> DECORADOR get, post, put, delete...
+  @Post('new') /* endponit raiz */
+  add(@Body() usuarioDTO: CreateUserDto){
+    
+    console.log('Usuario recibido', usuarioDTO);
+    
+   // return this.usuariosService.new(usuario);
   }
 
-  //Metodo interno porque no tiene decorador @Get o similar
-  delete() {
-    return 'Nueva lista de usuarios';
+  @Get(':id') 
+  findOne(@Param('id') id: string){
+    console.log(id);
+  }
+  
+
+
+
+  delete(){
+    return 'borrado de usuarios'
   }
 }
