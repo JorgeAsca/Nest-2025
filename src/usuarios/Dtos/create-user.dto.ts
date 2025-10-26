@@ -6,7 +6,7 @@ import { IsArray, IsNumber, IsInt, IsString, Min, Max, IsEmail, IsEmpty, IsNotEm
     IsUUID,
     ValidateNested} from "class-validator";
 
-import { AdressDto } from "./Adress.dto";
+import { AdressDto } from "./Adress.dto.js";
 import { Type } from "class-transformer";
 //peticion a los roles que hay en la tabla de roles de la api
 const roles: string[] = ['administrador', 'usuario', 'invitado'];
