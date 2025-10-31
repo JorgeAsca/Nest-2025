@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service.js';
 import { CreateUserDto } from './Dtos/create-user.dto.js';
 
@@ -20,21 +20,19 @@ export class UsuariosController {
   //Métodos ENDPOINT --> DECORADOR get, post, put, delete...
   @Post('new') /* endponit raiz */
   add(@Body() usuarioDTO: CreateUserDto){
-    
     console.log('Usuario recibido', usuarioDTO);
-    
-   // return this.usuariosService.new(usuario);
+    return this.usuariosService.new(usuarioDTO);
   }
 
   @Get(':id') 
   findOne(@Param('id') id: string){
     console.log(id);
+    return this.usuariosService.findOne(id);
   }
   
 
-
-
-  delete(){
+  @Delete(':id')
+  delete(@Param('id') id: string){
     return 'borrado de usuarios'
   }
 }

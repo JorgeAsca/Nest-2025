@@ -8,11 +8,14 @@ export interface iAdrress {
 }
 
 export interface iUsuario {
-  id: number;
   name: string;
-  email: string;
-  telefono?: string[];
-  direccion?: iAdrress[];
+    email: string;
+    edad: number;
+    rol: string;
+    telefonos?: string[];
+    nif?: string;
+    esdelMadrid?: boolean;
+    direcciones?: iAdrress[];
 }
 
 type iUsuarios = {

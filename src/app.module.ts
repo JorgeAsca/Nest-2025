@@ -3,7 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
-import { UsuariosModule, } from './usuarios/usuarios.module.js';
+import { UsuariosModule, } from './modulos/usuarios/usuarios.module.js';
+import { ClientesModule } from './modulos/clientes/clientes.module.js';
+import { SeedModule } from './modulos/seed/seed.module.js';
 
 
 @Module({
@@ -19,7 +21,9 @@ import { UsuariosModule, } from './usuarios/usuarios.module.js';
       autoLoadEntities: true,
       synchronize: true, // NO USAR EN PRODUCCION
     }),
-    UsuariosModule],
+    UsuariosModule,
+    ClientesModule,
+    SeedModule],
   controllers: [AppController],
   providers: [AppService], 
 })
