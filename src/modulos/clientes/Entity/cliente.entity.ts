@@ -1,20 +1,19 @@
 // Este codigo foram parte de el ORM --- Mapeo objeto relacional
 import { Column, Entity, PrimaryColumn, BeforeInsert, AfterInsert, UpdateDateColumn } from "typeorm";
-import { Addrees } from "../../../commom/Entity/adress.js";
-//create table usuario (id ....)
-//LOGICA DE NEGOCIO DE LA ENTIDAD USUARIO. Hola
+import { Addrees } from "../../../commom/modelo/Entity/adress.js";
 
-@Entity('clientes')
+
+@Entity('cliente')
 export class Cliente {
     
     @PrimaryColumn()
-    nif: string;
-
-    @Column('uuid')
-    id: string;
+    nif: string
 
     @Column({ nullable:true,  length: 30})
-    name: string;
+    nombre: string;
+
+    @Column({ nullable:true,  length: 30})
+    apellidos: string;
 
     @Column('int', {default: 18})
     edad: number;
@@ -22,33 +21,9 @@ export class Cliente {
     @Column({nullable: false, unique: true})
     email: string;
     
-    @Column()
-    rol: string;
+    @Column('float', {default: 0.3})
+    comision: number;
 
-    @Column(() => Addrees, { prefix: ''})addrees: Addrees;
-
-    // ----- Mecanismos de seguridad ----- // 
-    // ;pmtorizar ños registros de acceso de usuarios y crear una tabla
-
-    @UpdateDateColumn()
-    updatedAt: Date;
-
-    @UpdateDateColumn()
-    createdAt: Date;
-
-
-    // @AfterInsert()
-
-  
-    @BeforeInsert()// Evento disparador
-    checkName() { // metodo de ejecucion antes del evento 
-        console.log('Antes de insertar el usuario en la BD');
-        if (!this.name){
-            this.name = 'invitado';
-        }
-
-        this.name = this.name
-                    .replaceAll(' ', '_')
-                    .toUpperCase();  
-    }
+    @Column(() => Addrees, { prefix: '' }) address: Addrees;
+    
 }

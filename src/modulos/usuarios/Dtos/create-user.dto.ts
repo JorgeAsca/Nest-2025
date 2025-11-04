@@ -5,7 +5,7 @@ import {
     IsIn, IsBoolean, IsUUID, ValidateNested
 } from "class-validator";
 
-import { Addrees } from "../../../commom/Entity/adress.js";
+import { Addrees } from "../../../commom/modelo/Entity/adress.js";
 import { Type } from "class-transformer";
 import { AdressDto } from "./Adress.dto.js";
 //peticion a los roles que hay en la tabla de roles de la api

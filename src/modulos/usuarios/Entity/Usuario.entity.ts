@@ -1,6 +1,6 @@
 // Este codigo foram parte de el ORM --- Mapeo objeto relacional
 import { Column, Entity, PrimaryColumn, BeforeInsert, AfterInsert, UpdateDateColumn } from "typeorm";
-import { Addrees } from "../../../commom/Entity/adress.js";
+import { Addrees } from "../../../commom/modelo/Entity/adress.js";
 //create table usuario (id ....)
 //LOGICA DE NEGOCIO DE LA ENTIDAD USUARIO. Hola
 
@@ -28,9 +28,6 @@ export class Usuario {
     rol: string;
 
     @Column(() => Addrees, { prefix: ''})addrees: Addrees;
-
-    // ----- Mecanismos de seguridad ----- // 
-    // ;pmtorizar ños registros de acceso de usuarios y crear una tabla
 
     @UpdateDateColumn()
     updatedAt: Date;
